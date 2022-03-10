@@ -6,6 +6,8 @@ import passport from "passport";
 import {Session} from "../models/session.models";
 import {eventRouter} from "./event.route";
 import {itineraryRouter} from "./itinerary.route";
+import {stepRouter} from "./step.route";
+import {authRouter} from "./auth.route";
 
 export function buildApiRoutes() {
     const router = Router();
@@ -24,8 +26,8 @@ export function buildApiRoutes() {
     router.use(passport.initialize());
     router.use(passport.session());
     router.use("/itinerary", itineraryRouter);
-    // router.use(express.static('images_uploads',{cacheControl:true,maxAge:259200000}));
-
+    router.use("/step", stepRouter);
+    router.use("/auth", authRouter);
     router.use("/event", eventRouter);
 
     return router;

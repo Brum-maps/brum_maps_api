@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import "reflect-metadata";
 import {ItineraryRate} from "./itineraryRate.model";
+import {StepRate} from "./stepRate.model";
 
 
 export interface UserProps {
@@ -55,7 +56,11 @@ export class User implements UserProps {
     // @OneToMany(() => ProductPurchaseHistory, productPurchaseHistory => productPurchaseHistory.user)
     // productPurchaseHistory: ProductPurchaseHistory[];
     @OneToMany(() => ItineraryRate, itineraryRate => itineraryRate.user)
-    itineraryRates!: ItineraryRate[]
+    itineraryRates!: ItineraryRate[];
+
+    @OneToMany(() => StepRate, stepRate => stepRate.user)
+    stepRates!: StepRate[];
+
     @CreateDateColumn()
     createdAt!: Date;
 
