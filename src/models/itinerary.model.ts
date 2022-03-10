@@ -17,6 +17,7 @@ export interface ItineraryProps {
     distance: number;
     averageRate : number;
     isActive: boolean;
+    isPublic: boolean;
 }
 
 @Entity()
@@ -41,6 +42,9 @@ export class Itinerary implements ItineraryProps {
 
     @Column({type: "boolean",nullable: true})
     isActive!: boolean;
+
+    @Column({type: "boolean",nullable: true})
+    isPublic!: boolean;
 
     @OneToMany(() => ItineraryRate, itineraryRate => itineraryRate.itinerary)
     itineraryRates!: ItineraryRate[]

@@ -116,6 +116,15 @@ export class ItineraryController {
 
     }
 
+    public async updateItiniraryIsPublic(itineraryId: string, props: ItineraryProps){
+        return await this.itineraryRepository.createQueryBuilder()
+            .update(Itinerary)
+            .set({ isActive: props.isPublic})
+            .where("id = :itineraryId", { itineraryId : itineraryId })
+            .execute();
+
+    }
+
     public async rateItinerary(props: ItineraryRateProps, itineraryId: string, user: Express.User | undefined){
 
         const itinerary = await getRepository(Itinerary).findOne(itineraryId)
