@@ -1,6 +1,7 @@
 import express from "express";
 import {ItineraryController} from "../controllers/itinerary.controller";
-
+import {ItineraryStep, ItineraryStepProps} from "../models/itineraryStep.model";
+import {Step, StepProps} from "../models/step.model";
 
 
 const itineraryRouter = express.Router();
@@ -38,7 +39,7 @@ itineraryRouter.get("/search/:search", async function (req, res) {
     }
 });
 
-itineraryRouter.put("/:itineraryId",async function (req, res) {
+itineraryRouter.put("/:itineraryId", async function (req, res) {
     const itineraryId = req.params.itineraryId;
     const itineraryController = await ItineraryController.getInstance();
     try {
@@ -49,7 +50,7 @@ itineraryRouter.put("/:itineraryId",async function (req, res) {
     }
 });
 
-itineraryRouter.put("/isActiveItinerary/:itineraryId",async function (req, res) {
+itineraryRouter.put("/isActiveItinerary/:itineraryId", async function (req, res) {
     const itineraryId = req.params.itineraryId;
     const itineraryController = await ItineraryController.getInstance();
     try {
@@ -61,7 +62,7 @@ itineraryRouter.put("/isActiveItinerary/:itineraryId",async function (req, res) 
 });
 
 
-itineraryRouter.put("/isPublicItinerary/:itineraryId",async function (req, res) {
+itineraryRouter.put("/isPublicItinerary/:itineraryId", async function (req, res) {
     const itineraryId = req.params.itineraryId;
     const itineraryController = await ItineraryController.getInstance();
     try {
@@ -73,8 +74,7 @@ itineraryRouter.put("/isPublicItinerary/:itineraryId",async function (req, res) 
 });
 
 
-
-itineraryRouter.post("/",async function (req, res) {
+itineraryRouter.post("/", async function (req, res) {
     const itineraryController = await ItineraryController.getInstance();
     try {
         const itinerary = await itineraryController.createItinerary({...req.body});
@@ -128,7 +128,7 @@ itineraryRouter.get("/duration/:durationmin/:durationmax", async function (req, 
     const durationMax = parseInt(req.params.durationmax);
     const itineraryController = await ItineraryController.getInstance();
     try {
-        const itinerary = await itineraryController.getItineraryByDuration(durationMin,durationMax);
+        const itinerary = await itineraryController.getItineraryByDuration(durationMin, durationMax);
         res.json(itinerary);
     } catch (err) {
         res.status(400).json(err);
@@ -141,7 +141,7 @@ itineraryRouter.get("/distance/:distancemin/:distancemax", async function (req, 
     const distanceMax = parseInt(req.params.distancemax);
     const itineraryController = await ItineraryController.getInstance();
     try {
-        const itinerary = await itineraryController.getItineraryByDistance(distanceMin,distanceMax);
+        const itinerary = await itineraryController.getItineraryByDistance(distanceMin, distanceMax);
         res.json(itinerary);
     } catch (err) {
         res.status(400).json(err);
@@ -166,9 +166,33 @@ itineraryRouter.post("/itineraryStep/:itineraryid/:stepid", async function (req,
     const itineraryId = req.params.itineraryid
     const stepId = req.params.stepid
     try {
-        const itineraryRate = await itineraryController.insertStepInItineraryByids( itineraryId, stepId, {...req.body});
+        const itineraryRate = await itineraryController.insertStepInItineraryByids(itineraryId, stepId, {...req.body});
 
         res.status(201).json(itineraryRate);
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+});
+
+itineraryRouter.post("/custom", async function (req, res) {
+
+    const itineraryController = await ItineraryController.getInstance();
+    const itinerary = req.body
+    const steps = req.body.stepstoSave
+    try {
+        const itinerarySaved = await itineraryController.createItinerary(itinerary);
+
+        if (itinerarySaved != null) {
+            steps.forEach((step : any) => {
+                let stepProps: ItineraryStepProps = new ItineraryStep()
+                stepProps.order = step.order
+                itineraryController.insertStepInItineraryByids(itinerarySaved.id, step.id, stepProps)
+            })
+        }
+
+        res.status(201).json(itinerarySaved);
 
     } catch (err) {
         console.log(err);

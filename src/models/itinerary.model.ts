@@ -31,7 +31,7 @@ export class Itinerary implements ItineraryProps {
     @Column({type: "varchar",nullable: false})
     description!: string;
 
-    @Column({type: "bigint",nullable: false})
+    @Column({type: "bigint",nullable: true})
     duration!: number;
 
     @Column({type: "float",nullable: true})
@@ -40,7 +40,7 @@ export class Itinerary implements ItineraryProps {
     @Column({type: "float",nullable: true})
     averageRate!: number;
 
-    @Column({type: "boolean",nullable: true})
+    @Column({default:true, type: "boolean",nullable: true})
     isActive!: boolean;
 
     @Column({type: "boolean",nullable: true})

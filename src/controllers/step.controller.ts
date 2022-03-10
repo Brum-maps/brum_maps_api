@@ -98,5 +98,13 @@ export class StepController {
 
     }
 
+    public async getRandomSteps(limit: number){
+
+        return await this.stepRepository.createQueryBuilder()
+            .take(limit)
+            .orderBy("RANDOM()")
+            .getMany()
+    }
+
 
 }

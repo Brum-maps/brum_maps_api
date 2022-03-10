@@ -18,6 +18,7 @@ createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [__dirname + "/**/models/*.ts"],
+    // entities: ['src/models/*.ts', './build/src/models/*.js', './dist/src/models/*.js'],
     synchronize: true,
     logging: true,
     ssl: true,

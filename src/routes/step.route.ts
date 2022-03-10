@@ -69,6 +69,18 @@ stepRouter.get("/:stepId/getRates", async function (req, res) {
     }
 });
 
+stepRouter.get("/randomSteps/:limit", async function (req, res) {
+    const limit = parseInt(req.params.limit);
+    const stepController = await StepController.getInstance();
+    try {
+        const steps = await stepController.getRandomSteps(limit);
+
+        res.status(200).json(steps).end();
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
 stepRouter.post("/:stepId/vote", async function (req, res) {
     const stepId = req.params.stepId;
     const stepController = await StepController.getInstance();
