@@ -112,4 +112,8 @@ export class ItineraryController {
         return await getRepository(ItineraryRate).save(itineraryRate);
 
     }
+
+    public async deleterateItinerary(id: string) {
+        await getRepository(ItineraryRate).softDelete(id);
+    }
 }

@@ -124,6 +124,17 @@ itineraryRouter.get("/distance/:distancemin/:distancemax", async function (req, 
 
 });
 
+itineraryRouter.delete("/itineraryRate/:itineraryRateId", async function (req, res) {
+    const itineraryRateId = req.params.itineraryRateId;
+    try {
+        const itineraryController = await ItineraryController.getInstance();
+        await itineraryController.deleterateItinerary(itineraryRateId);
+        res.status(204).end();
+    } catch (err) {
+        res.status(400).end();
+    }
+});
+
 
 
 
