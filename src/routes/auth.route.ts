@@ -8,6 +8,8 @@ const authRouter = express.Router();
 authRouter.post("/signin", async function (req, res) {
     const authController = await AuthController.getInstance();
     console.log(req.body);
+    req.body.image = "null";
+    req.body.role = "USER";
     try {
         const user = await authController.subscribe({...req.body});
         res.status(201).json(user);

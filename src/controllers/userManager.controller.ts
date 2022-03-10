@@ -1,7 +1,5 @@
 import {getRepository, Repository} from "typeorm";
 import {User, UserProps} from "../models/user.models";
-import {Itinerary} from "../models/itinerary.model";
-import {ItineraryRate, ItineraryRateProps} from "../models/itineraryRate.model";
 
 
 export class UserManagerController {
@@ -26,7 +24,9 @@ export class UserManagerController {
     }
 
     public async getUserById(id: string): Promise<User | undefined> {
-        return this.userRepository.findOne(id)
+
+        return this.userRepository.findOne(id);
+
         /*return this.projectRepository.createQueryBuilder("project")
             .leftJoinAndSelect("project.user", "projectUser")
             .where("project.id = :id", {id: id})
@@ -48,7 +48,4 @@ export class UserManagerController {
     public async deleteUserById(id: string) {
         await this.userRepository.softDelete(id);
     }
-
-
-
 }
