@@ -1,6 +1,7 @@
 import {Event, EventProps} from "../models/event.models";
 import {getRepository, Repository} from "typeorm";
 import {Session} from "../models/session.models";
+import {User, UserProps} from "../models/user.models";
 
 export class EventController{
     private static instance: EventController;
@@ -25,4 +26,16 @@ export class EventController{
        return event;
 
     }
+    public async updateEvent(id: string, props: EventProps) {
+        const result = await this.eventRepository.update(id, props);
+        return !(result.affected === undefined || result.affected <= 0);
+    }
+
+    public async deleteEventById(id: string) {
+        await this.eventRepository.softDelete(id);
+    }
+    public async getAllevent(): Promise<Event[]> {
+        return this.eventRepository.find();
+    }
+
 }
