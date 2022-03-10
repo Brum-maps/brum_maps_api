@@ -11,7 +11,7 @@ export function configureApi() {
     passport.use('local-web', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'
-    }, function (email: string, password: string, done) {
+    }, function (email: string, password: string, done:any) {
         getRepository(AngularUser).findOne({email: email}, {select: ["id", "email", "password"]})
             .then(async user => {
                 if (user === undefined) {
@@ -26,6 +26,7 @@ export function configureApi() {
         });
     }));
 
+    // @ts-ignore
     passport.serializeUser((user: AngularUser, cb: any) => {
         cb(null, user.id);
     });

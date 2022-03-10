@@ -2,9 +2,10 @@ import express, {Express, Router} from "express";
 import {getRepository} from "typeorm";
 import {TypeormStore} from "connect-typeorm";
 import {configureApi} from "../config/passport.config";
-var passport = require("passport");
+import passport from "passport";
+import {Session} from "../models/session.models";
 
-export function buildWebRoutes() {
+export function buildApiRoutes() {
     const router = Router();
     configureApi();
     router.use(require('cors')({ credentials : true, origin: ["http://localhost:4200", "http://localhost:4201"]}));
@@ -20,7 +21,7 @@ export function buildWebRoutes() {
     }));
     router.use(passport.initialize());
     router.use(passport.session());
-    router.use(express.static('images_uploads',{cacheControl:true,maxAge:259200000}));
+    // router.use(express.static('images_uploads',{cacheControl:true,maxAge:259200000}));
 
     return router;
 }
