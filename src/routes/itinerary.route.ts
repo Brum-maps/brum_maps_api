@@ -86,7 +86,7 @@ itineraryRouter.post("/rateItinerary/:itineraryid", async function (req, res) {
     }
 });
 
-itineraryRouter.get("/:averageRate", async function (req, res) {
+itineraryRouter.get("/averagerate/:averageRate", async function (req, res) {
     const averageRate = parseInt(req.params.averageRate);
     const itineraryController = await ItineraryController.getInstance();
     try {
