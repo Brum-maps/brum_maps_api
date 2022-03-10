@@ -7,8 +7,6 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
-import {ItineraryRate} from "./itineraryRate.model";
-import {UserProps} from "./user.models";
 import {StepRate} from "./stepRate.model";
 import {ItineraryStep} from "./itineraryStep.model";
 
@@ -17,8 +15,6 @@ export interface StepProps {
     description: string;
     longitude: number;
     latitude: number;
-    start_date: Date;
-    end_date: Date;
     mark: number;
     image: string;
 }
@@ -39,12 +35,6 @@ export class Step implements StepProps {
 
     @Column({type: "float", nullable: false})
     latitude!: number;
-
-    @Column({type: "date", nullable: false})
-    start_date!: Date;
-
-    @Column({type: "date", nullable: false})
-    end_date!: Date;
 
     @Column({type: "float", nullable: true})
     mark!: number;
