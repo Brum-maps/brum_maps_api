@@ -23,8 +23,8 @@ export class UserManagerController {
         return !(result.affected === undefined || result.affected <= 0);
     }
 
-    public async getUserById(id: string): Promise<User> {
-        return this.userRepository.findOne(id)
+    public async getUserById(id: string): Promise<User | undefined> {
+        return this.userRepository.findOne(id);
         /*return this.projectRepository.createQueryBuilder("project")
             .leftJoinAndSelect("project.user", "projectUser")
             .where("project.id = :id", {id: id})

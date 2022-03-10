@@ -4,6 +4,7 @@ import {TypeormStore} from "connect-typeorm";
 import {configureApi} from "../config/passport.config";
 import passport from "passport";
 import {Session} from "../models/session.models";
+import {eventRouter} from "./event.route";
 import {itineraryRouter} from "./itinerary.route";
 
 export function buildApiRoutes() {
@@ -11,7 +12,7 @@ export function buildApiRoutes() {
     configureApi();
     // router.use(require('cors')({ credentials : true, origin: ["http://localhost:4200", "http://localhost:4201"]}));
     router.use("/", require('express-session')({
-        secret: process.env.SECRET ,
+        secret: process.env.SECRET,
         resave: true,
         saveUninitialized: true,
         store: new TypeormStore({
@@ -24,6 +25,8 @@ export function buildApiRoutes() {
     router.use(passport.session());
     router.use("/itinerary", itineraryRouter);
     // router.use(express.static('images_uploads',{cacheControl:true,maxAge:259200000}));
+
+    router.use("/event", eventRouter);
 
     return router;
 }
