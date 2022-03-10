@@ -49,11 +49,6 @@ export class UserManagerController {
         await this.userRepository.softDelete(id);
     }
 
-    public async rateItinerary(props: ItineraryRateProps, itineraryId: string, user: Express.User | undefined){
 
-        const itinerary = await getRepository(Itinerary).findOne(itineraryId)
-        const itineraryRate = getRepository(ItineraryRate).create({...props, user: user, itinerary: itinerary});
-        return await getRepository(ItineraryRate).save(itineraryRate);
 
-    }
 }

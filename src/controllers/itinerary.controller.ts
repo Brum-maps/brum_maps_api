@@ -1,13 +1,16 @@
 import {getRepository, LessThanOrEqual, MoreThanOrEqual, Repository} from "typeorm";
 import {Itinerary, ItineraryProps} from "../models/itinerary.model";
 import {Duration} from "moment";
+import {ItineraryRate, ItineraryRateProps} from "../models/itineraryRate.model";
 
 export class ItineraryController {
     private static instance: ItineraryController;
     private itineraryRepository: Repository<Itinerary>;
+    private itineraryRateRepository: Repository<ItineraryRate>;
 
     private constructor() {
         this.itineraryRepository = getRepository(Itinerary);
+        this.itineraryRateRepository = getRepository(ItineraryRate);
     }
 
     public static async getInstance(): Promise<ItineraryController> {
@@ -73,5 +76,40 @@ export class ItineraryController {
 
     public async updateItineraryById(id: string, props: ItineraryProps) {
         await this.itineraryRepository.update(id, props);
+    }
+
+    public async updateItineraryRateById(itineraryId: string){
+        console.log("itiid", itineraryId)
+        let itineraryRates : ItineraryRate[] = [];
+         itineraryRates =
+             await this.itineraryRateRepository.createQueryBuilder("itinerary_rate")
+            .leftJoinAndSelect("itinerary_rate.itinerary", "itinerary")
+                 .where("itinerary.id = :itineraryId", {itineraryId})
+            .getMany() ;
+
+        let sum = 0
+        itineraryRates.forEach((itineraryRate : ItineraryRate) => {
+            sum += parseInt(String(itineraryRate.rate));
+
+        });
+
+        console.log("sum",  sum)
+        let average = sum / itineraryRates.length
+        console.log(average)
+
+        return await this.itineraryRepository.createQueryBuilder()
+            .update(Itinerary)
+            .set({ averageRate: average})
+            .where("id = :itineraryId", { itineraryId : itineraryId })
+            .execute();
+
+    }
+
+    public async rateItinerary(props: ItineraryRateProps, itineraryId: string, user: Express.User | undefined){
+
+        const itinerary = await getRepository(Itinerary).findOne(itineraryId)
+        const itineraryRate = getRepository(ItineraryRate).create({...props, user: user, itinerary: itinerary});
+        return await getRepository(ItineraryRate).save(itineraryRate);
+
     }
 }

@@ -1,6 +1,7 @@
 import express from "express";
 import {ItineraryController} from "../controllers/itinerary.controller";
-import {Itinerary} from "../models/itinerary.model";
+
+
 
 const itineraryRouter = express.Router();
 
@@ -67,6 +68,21 @@ itineraryRouter.delete("/:itineraryId", async function (req, res) {
         res.status(204).end();
     } catch (err) {
         res.status(400).end();
+    }
+});
+itineraryRouter.post("/rateItinerary/:itineraryid", async function (req, res) {
+
+    const itineraryController = await ItineraryController.getInstance();
+    const itineraryId = req.params.itineraryid
+    try {
+        const itineraryRate = await itineraryController.rateItinerary({...req.body}, itineraryId, req.user);
+
+        const update = itineraryController.updateItineraryRateById(itineraryId);
+        res.status(201).json(update);
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
     }
 });
 
