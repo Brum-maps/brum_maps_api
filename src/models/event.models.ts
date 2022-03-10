@@ -3,11 +3,12 @@ import {
     CreateDateColumn,
     DeleteDateColumn,
     Entity,
-    OneToMany,
+    OneToMany, OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
 import "reflect-metadata";
+import {EventParticipant} from "./eventParticipant.model";
 
 
 export interface EventProps {
@@ -37,6 +38,8 @@ export class Event implements EventProps {
     @Column({type: "varchar", length: 255, nullable: false})
     state!: string;
 
+    @OneToOne(() => EventParticipant, eventParticipations => eventParticipations.id_event)
+    eventParticipations!: EventParticipant[]
     @CreateDateColumn()
     createdAt!: Date;
 

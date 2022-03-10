@@ -1,7 +1,6 @@
 import {Event, EventProps} from "../models/event.models";
 import {getRepository, Repository} from "typeorm";
 import {Session} from "../models/session.models";
-import {User, UserProps} from "../models/user.models";
 
 export class EventController{
     private static instance: EventController;
@@ -34,7 +33,7 @@ export class EventController{
     public async deleteEventById(id: string) {
         await this.eventRepository.softDelete(id);
     }
-    public async getAllevent(): Promise<Event[]> {
+    public async getAllEvent(): Promise<Event[]> {
         return this.eventRepository.find();
     }
 

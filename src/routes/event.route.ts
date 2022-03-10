@@ -38,7 +38,7 @@ eventRouter.put('/update', async function (req, res) {
 eventRouter.get('/All', async function (req, res) {
     try{
         const eventController = await EventController.getInstance();
-        const event = await eventController.getAllevent();
+        const event = await eventController.getAllEvent();
         res.status(201).json(event);
     }    catch (err) {
         res.status(404).json("bad query exception").send();
