@@ -1,4 +1,4 @@
-import express, {Express} from "express";
+import express, {Express, Router} from "express";
 import {createConnection, getRepository} from "typeorm";
 import {config} from "dotenv";
 import bodyParser from "body-parser";
@@ -8,6 +8,7 @@ import {buildApiRoutes} from "./routes/index.route";
 config();
 
 const port = process.env.PORT;
+const listEndpoints = require('express-list-endpoints')
 
 // @ts-ignore
 createConnection({
@@ -33,6 +34,7 @@ createConnection({
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(require('cookie-parser')());
     app.use("/bru-maps", buildApiRoutes());
+    // console.log(listEndpoints(app));
     app.listen(port, function () {
         console.log(`Listening on ${port}...`);
     });
