@@ -2,6 +2,8 @@ import {getRepository, LessThanOrEqual, MoreThanOrEqual, Repository} from "typeo
 import {Itinerary, ItineraryProps} from "../models/itinerary.model";
 import {Duration} from "moment";
 import {ItineraryRate, ItineraryRateProps} from "../models/itineraryRate.model";
+import {ItineraryStep, ItineraryStepProps} from "../models/itineraryStep.model";
+import {Step} from "../models/step.model";
 
 export class ItineraryController {
     private static instance: ItineraryController;
@@ -115,5 +117,12 @@ export class ItineraryController {
 
     public async deleterateItinerary(id: string) {
         await getRepository(ItineraryRate).softDelete(id);
+    }
+
+    public async insertStepInItineraryByids(itineraryId: string, stepId: string, props: ItineraryStepProps) {
+        const itinerary = await getRepository(Itinerary).findOne(itineraryId)
+        const step = await getRepository(Step).findOne(stepId)
+        const itineraryStep = getRepository(ItineraryStep).create({...props, step: step, itinerary: itinerary});
+        return await getRepository(ItineraryStep).save(itineraryStep);
     }
 }

@@ -10,6 +10,7 @@ import {
 import {ItineraryRate} from "./itineraryRate.model";
 import {UserProps} from "./user.models";
 import {StepRate} from "./stepRate.model";
+import {ItineraryStep} from "./itineraryStep.model";
 
 export interface StepProps {
     name: string;
@@ -53,6 +54,10 @@ export class Step implements StepProps {
 
     @OneToMany(() => StepRate, stepRate => stepRate.step)
     stepRates!: StepRate[];
+
+    @OneToMany(() => ItineraryStep, itinerary => itinerary.step)
+    itinerarySteps!: ItineraryStep[];
+
 
     @CreateDateColumn()
     createdAt!: Date;

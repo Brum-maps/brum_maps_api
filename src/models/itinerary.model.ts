@@ -7,8 +7,8 @@ import {
     UpdateDateColumn
 } from "typeorm";
 
-import {Duration} from "moment";
 import {ItineraryRate} from "./itineraryRate.model";
+import {ItineraryStep} from "./itineraryStep.model";
 
 export interface ItineraryProps {
     name: string;
@@ -40,6 +40,9 @@ export class Itinerary implements ItineraryProps {
 
     @OneToMany(() => ItineraryRate, itineraryRate => itineraryRate.itinerary)
     itineraryRates!: ItineraryRate[]
+
+    @OneToMany(() => ItineraryStep, itineraryStep => itineraryStep.itinerary)
+    itinerarySteps!: ItineraryStep[]
 
     @CreateDateColumn()
     createdAt!: Date;

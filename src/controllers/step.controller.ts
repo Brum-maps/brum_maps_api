@@ -1,6 +1,5 @@
 import {getRepository, LessThanOrEqual, MoreThanOrEqual, Repository} from "typeorm";
 import {Step, StepProps} from "../models/step.model";
-import {Duration} from "moment";
 import {StepRate, StepRateProps} from "../models/stepRate.model";
 
 

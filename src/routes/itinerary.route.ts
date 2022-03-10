@@ -135,7 +135,21 @@ itineraryRouter.delete("/itineraryRate/:itineraryRateId", async function (req, r
     }
 });
 
+itineraryRouter.post("/itineraryStep/:itineraryid/:stepid", async function (req, res) {
 
+    const itineraryController = await ItineraryController.getInstance();
+    const itineraryId = req.params.itineraryid
+    const stepId = req.params.stepid
+    try {
+        const itineraryRate = await itineraryController.insertStepInItineraryByids( itineraryId, stepId, {...req.body});
+
+        res.status(201).json(itineraryRate);
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+});
 
 
 export {
