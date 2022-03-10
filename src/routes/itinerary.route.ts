@@ -1,9 +1,9 @@
 import express from "express";
 import {ItineraryController} from "../controllers/itinerary.controller";
 
-const productRouter = express.Router();
+const itineraryRouter = express.Router();
 
-productRouter.get("/", async function (req, res) {
+itineraryRouter.get("/getAll", async function (req, res) {
     const itineraryController = await ItineraryController.getInstance();
     const itineraries = await itineraryController.getAll();
     try {
@@ -13,7 +13,7 @@ productRouter.get("/", async function (req, res) {
     }
 });
 
-productRouter.get("/:itineraryId", async function (req, res) {
+itineraryRouter.get("/:itineraryId", async function (req, res) {
     const itineraryId = req.params.itineraryId;
     const itineraryController = await ItineraryController.getInstance();
     try {
@@ -24,7 +24,7 @@ productRouter.get("/:itineraryId", async function (req, res) {
     }
 });
 
-productRouter.get("/search/:search", async function (req, res) {
+itineraryRouter.get("/search/:search", async function (req, res) {
     const search = req.params.search;
     const itineraryController = await ItineraryController.getInstance();
     try {
@@ -35,7 +35,7 @@ productRouter.get("/search/:search", async function (req, res) {
     }
 });
 
-productRouter.put("/:itineraryId",async function (req, res) {
+itineraryRouter.put("/:itineraryId",async function (req, res) {
     const itineraryId = req.params.itineraryId;
     const itineraryController = await ItineraryController.getInstance();
     try {
@@ -46,7 +46,7 @@ productRouter.put("/:itineraryId",async function (req, res) {
     }
 });
 
-productRouter.delete("/:itineraryId", async function (req, res) {
+itineraryRouter.delete("/:itineraryId", async function (req, res) {
     const itineraryId = req.params.itineraryId;
     try {
         const itineraryController = await ItineraryController.getInstance();
@@ -57,7 +57,7 @@ productRouter.delete("/:itineraryId", async function (req, res) {
     }
 });
 
-productRouter.get("/:averageRate", async function (req, res) {
+itineraryRouter.get("/:averageRate", async function (req, res) {
     const averageRate = parseInt(req.params.averageRate);
     const itineraryController = await ItineraryController.getInstance();
     try {
@@ -69,7 +69,7 @@ productRouter.get("/:averageRate", async function (req, res) {
 
 });
 
-// productRouter.get("/:averageRate&:test", async function (req, res) {
+// itineraryRouter.get("/:averageRate&:test", async function (req, res) {
 //     const averageRate = parseInt(req.params.averageRate);
 //     const test = parseInt(req.params.test);
 //     const itineraryController = await ItineraryController.getInstance();
@@ -86,5 +86,5 @@ productRouter.get("/:averageRate", async function (req, res) {
 
 
 export {
-    productRouter
+    itineraryRouter
 }

@@ -18,24 +18,24 @@ export interface ItineraryProps {
     averageRate : number;
 }
 
-// @Entity({database: "TODO"})
+@Entity()
 export class Itinerary implements ItineraryProps {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
 
-    @Column({nullable: false})
+    @Column({type: "varchar",nullable: false})
     name!: string;
 
-    @Column({nullable: false})
+    @Column({type: "varchar",nullable: false})
     description!: string;
 
-    @Column({nullable: false})
+    @Column({type: "bigint",nullable: false})
     duration!: number;
 
-    @Column({nullable: true})
+    @Column({type: "float",nullable: true})
     distance!: number;
 
-    @Column({nullable: true})
+    @Column({type: "float",nullable: true})
     averageRate!: number;
 
     @OneToMany(() => ItineraryRate, itineraryRate => itineraryRate.itinerary)

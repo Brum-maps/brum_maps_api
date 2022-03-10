@@ -16,15 +16,15 @@ export interface ItineraryRateProps {
     comment: string;
 }
 
-// @Entity({database: "TODO"})
+@Entity()
 export class ItineraryRate implements ItineraryRateProps {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
 
-    @Column({nullable:! false})
+    @Column({type: "varchar",nullable:! false})
     rate!: number;
 
-    @Column({nullable: false})
+    @Column({type: "varchar",nullable: false})
     comment!: string;
 
     @ManyToOne(()=> Itinerary, itinerary => itinerary.itineraryRates)
