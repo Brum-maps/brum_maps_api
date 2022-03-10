@@ -1,5 +1,7 @@
 import {getRepository, Repository} from "typeorm";
 import {User, UserProps} from "../models/user.models";
+import {Itinerary} from "../models/itinerary.model";
+import {ItineraryRate, ItineraryRateProps} from "../models/itineraryRate.model";
 
 
 export class UserManagerController {
@@ -23,7 +25,7 @@ export class UserManagerController {
         return !(result.affected === undefined || result.affected <= 0);
     }
 
-    public async getUserById(id: string): Promise<User> {
+    public async getUserById(id: string): Promise<User | undefined> {
         return this.userRepository.findOne(id)
         /*return this.projectRepository.createQueryBuilder("project")
             .leftJoinAndSelect("project.user", "projectUser")
@@ -45,5 +47,13 @@ export class UserManagerController {
 
     public async deleteUserById(id: string) {
         await this.userRepository.softDelete(id);
+    }
+
+    public async rateItinerary(props: ItineraryRateProps, itineraryId: string, user: Express.User | undefined){
+
+        const itinerary = await getRepository(Itinerary).findOne(itineraryId)
+        const itineraryRate = getRepository(ItineraryRate).create({...props, user: user, itinerary: itinerary});
+        return await getRepository(ItineraryRate).save(itineraryRate);
+
     }
 }

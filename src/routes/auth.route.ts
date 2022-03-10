@@ -5,11 +5,11 @@ import {AuthController} from "../controllers/auth.controller";
 
 const authRouter = express.Router();
 
-authRouter.post("/signin", ensureLoggedOut, async function (req, res) {
+authRouter.post("/signin", async function (req, res) {
     const authController = await AuthController.getInstance();
     console.log(req.body);
     try {
-        const user = await authController.subscribe({...req.body, certified : false});
+        const user = await authController.subscribe({...req.body});
         res.status(201).json(user);
     } catch (err) {
         console.log(err);
