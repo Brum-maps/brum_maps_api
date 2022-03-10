@@ -8,17 +8,7 @@ import {
     UpdateDateColumn
 } from "typeorm";
 import "reflect-metadata";
-import {Event} from "./event.models";
-import {Product} from "./product.models";
-import {AuctionSale} from "./auctionSale.models";
-import {Message} from "./message.models";
-import {EventParticipant} from "./eventParticipant.models";
-import {AuctionSaleProposal} from "./auctionSaleProposal.models";
-import {ProductProposal} from "./productProposal.models";
-import {UserBlockedUser} from "./userBlockUser.models";
-import {AuctionSaleWinHistoryModels} from "./auctionSaleWinHistory.models";
-import {ProductPurchaseHistory} from "./productPurchaseHistory.models";
-import {DiscussionMessage} from "./discussionMessage.models";
+import {ItineraryRate} from "./itineraryRate.model";
 
 
 export interface UserProps {
@@ -97,47 +87,50 @@ export class User implements UserProps {
     @Column({type: "float", nullable: false})
     latitude!: number;
 
-    @OneToMany(() => Event, event => event.creator)
-    event: Event[];
+    // @OneToMany(() => Event, event => event.creator)
+    // event: Event[];
+    //
+    // @OneToMany(() => Product, product => product.creator)
+    // product: Product[];
+    //
+    // @OneToMany(() => AuctionSale, auctionSales => auctionSales.creator)
+    // auctionSales: AuctionSale[];
+    //
+    // @OneToMany(() => AuctionSale, auctionSales => auctionSales.owner)
+    // auctionSaleOwner: AuctionSale[];
+    //
+    // @OneToMany(() => Message, message => message.sender)
+    // messageSended: Message[];
+    //
+    // @OneToMany(() => DiscussionMessage, discussionMessage => discussionMessage.user)
+    // discussionMessage: DiscussionMessage[];
+    //
+    // @OneToMany(() => Message, message => message.receiver)
+    // messageReceived: Message[];
+    //
+    // @OneToMany(() => UserBlockedUser, userBlockedUser => userBlockedUser.blockerUser)
+    // usersBlocked: UserBlockedUser[];
+    //
+    // @OneToMany(() => UserBlockedUser, userBlockedUser => userBlockedUser.blockedUser)
+    // blockedByUsers: UserBlockedUser[];
+    //
+    // @OneToMany(() => EventParticipant, eventParticipant => eventParticipant.user)
+    // eventParticipants: EventParticipant[];
+    //
+    // @OneToMany(() => AuctionSaleProposal, auctionSaleProposals => auctionSaleProposals.user)
+    // auctionSaleProposals: AuctionSaleProposal[];
+    //
+    // @OneToMany(() => ProductProposal, productProposals => productProposals.user)
+    // productProposals: ProductProposal[];
+    //
+    // @OneToMany(() => AuctionSaleWinHistoryModels, auctionSaleWinHistory => auctionSaleWinHistory.user)
+    // auctionSaleWinHistory: AuctionSaleWinHistoryModels[];
+    //
+    // @OneToMany(() => ProductPurchaseHistory, productPurchaseHistory => productPurchaseHistory.user)
+    // productPurchaseHistory: ProductPurchaseHistory[];
 
-    @OneToMany(() => Product, product => product.creator)
-    product: Product[];
-
-    @OneToMany(() => AuctionSale, auctionSales => auctionSales.creator)
-    auctionSales: AuctionSale[];
-
-    @OneToMany(() => AuctionSale, auctionSales => auctionSales.owner)
-    auctionSaleOwner: AuctionSale[];
-
-    @OneToMany(() => Message, message => message.sender)
-    messageSended: Message[];
-
-    @OneToMany(() => DiscussionMessage, discussionMessage => discussionMessage.user)
-    discussionMessage: DiscussionMessage[];
-
-    @OneToMany(() => Message, message => message.receiver)
-    messageReceived: Message[];
-
-    @OneToMany(() => UserBlockedUser, userBlockedUser => userBlockedUser.blockerUser)
-    usersBlocked: UserBlockedUser[];
-
-    @OneToMany(() => UserBlockedUser, userBlockedUser => userBlockedUser.blockedUser)
-    blockedByUsers: UserBlockedUser[];
-
-    @OneToMany(() => EventParticipant, eventParticipant => eventParticipant.user)
-    eventParticipants: EventParticipant[];
-
-    @OneToMany(() => AuctionSaleProposal, auctionSaleProposals => auctionSaleProposals.user)
-    auctionSaleProposals: AuctionSaleProposal[];
-
-    @OneToMany(() => ProductProposal, productProposals => productProposals.user)
-    productProposals: ProductProposal[];
-
-    @OneToMany(() => AuctionSaleWinHistoryModels, auctionSaleWinHistory => auctionSaleWinHistory.user)
-    auctionSaleWinHistory: AuctionSaleWinHistoryModels[];
-
-    @OneToMany(() => ProductPurchaseHistory, productPurchaseHistory => productPurchaseHistory.user)
-    productPurchaseHistory: ProductPurchaseHistory[];
+    @OneToMany(() => ItineraryRate, itineraryRate => itineraryRate.user)
+    itineraryRates!: ItineraryRate[]
 
     @CreateDateColumn()
     createdAt!: Date;
