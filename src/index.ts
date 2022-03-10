@@ -2,7 +2,7 @@ import express, {Express} from "express";
 import {createConnection, getRepository} from "typeorm";
 import {config} from "dotenv";
 import bodyParser from "body-parser";
-import {buildApiRoutes} from "./bru-maps-api/routes/index.route";
+import {buildApiRoutes} from "./routes/index.route";
 
 
 config();
