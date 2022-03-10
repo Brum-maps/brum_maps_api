@@ -49,6 +49,17 @@ itineraryRouter.put("/:itineraryId",async function (req, res) {
     }
 });
 
+itineraryRouter.put("/isActiveItinerary/:itineraryId",async function (req, res) {
+    const itineraryId = req.params.itineraryId;
+    const itineraryController = await ItineraryController.getInstance();
+    try {
+        await itineraryController.updateItiniraryIsActive(itineraryId, {...req.body});
+        res.status(204).end();
+    } catch (err) {
+        res.status(400).end();
+    }
+});
+
 itineraryRouter.post("/",async function (req, res) {
     const itineraryController = await ItineraryController.getInstance();
     try {
