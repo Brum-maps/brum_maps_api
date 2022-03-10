@@ -6,8 +6,8 @@ import passport from "passport";
 import {Session} from "../models/session.models";
 import {eventRouter} from "./event.route";
 import {itineraryRouter} from "./itinerary.route";
-import {stepRouter} from "./step.route";
 import {authRouter} from "./auth.route";
+import {stepRouter} from "./step.route";
 
 export function buildApiRoutes() {
     const router = Router();
