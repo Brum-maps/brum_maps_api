@@ -24,6 +24,11 @@ export class ItineraryController {
     public async getItineraryById(id: string): Promise<Itinerary | null> {
         return await this.itineraryRepository.findOneOrFail(id);
     }
+    public async createItinerary(props: ItineraryProps): Promise<Itinerary | null> {
+
+        const itinerary = this.itineraryRepository.create({...props});
+        return this.itineraryRepository.save(itinerary);
+    }
 
     public async getItineraryByAverageRate(averageRate: number): Promise<Itinerary[] | null> {
 
@@ -33,7 +38,7 @@ export class ItineraryController {
 
     public async getItineraryByDuration(durationMin: number, durationMax: number): Promise<Itinerary[] | null> {
 
-        return await this.itineraryRepository.createQueryBuilder()
+        return await this.itineraryRepository.createQueryBuilder("itinerary")
             .where("itinerary.duration >= :durationMin", {durationMin: durationMin})
             .andWhere("itinerary.duration <= :durationMax", {durationMax: durationMax})
             .getMany();
@@ -42,15 +47,15 @@ export class ItineraryController {
 
     public async getItineraryByDistance(distanceMin: number, distanceMax: number): Promise<Itinerary[] | null> {
 
-        return await this.itineraryRepository.createQueryBuilder()
-            .where("itinerary.duration >= :distanceMin", {distanceMin: distanceMin})
-            .andWhere("itinerary.duration <= :distanceMax", {distanceMax: distanceMax})
+        return await this.itineraryRepository.createQueryBuilder("itinerary")
+            .where("itinerary.distance >= :distanceMin", {distanceMin: distanceMin})
+            .andWhere("itinerary.distance <= :distanceMax", {distanceMax: distanceMax})
             .getMany();
 
     }
 
     public async getItineraryBySearch(search: string): Promise<Itinerary[] | null> {
-        return await this.itineraryRepository.createQueryBuilder()
+        return await this.itineraryRepository.createQueryBuilder("itinerary")
             .where("itinerary.name like :name", {name: "%"+search+"%"})
             .getMany()
     }

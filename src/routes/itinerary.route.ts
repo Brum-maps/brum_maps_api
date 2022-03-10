@@ -1,5 +1,6 @@
 import express from "express";
 import {ItineraryController} from "../controllers/itinerary.controller";
+import {Itinerary} from "../models/itinerary.model";
 
 const itineraryRouter = express.Router();
 
@@ -12,6 +13,7 @@ itineraryRouter.get("/getAll", async function (req, res) {
         res.status(400).end();
     }
 });
+
 
 itineraryRouter.get("/:itineraryId", async function (req, res) {
     const itineraryId = req.params.itineraryId;
@@ -46,6 +48,17 @@ itineraryRouter.put("/:itineraryId",async function (req, res) {
     }
 });
 
+itineraryRouter.post("/",async function (req, res) {
+    const itineraryController = await ItineraryController.getInstance();
+    try {
+        const itinerary = await itineraryController.createItinerary({...req.body});
+        res.status(201).json(itinerary);
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+});
+
 itineraryRouter.delete("/:itineraryId", async function (req, res) {
     const itineraryId = req.params.itineraryId;
     try {
@@ -69,18 +82,31 @@ itineraryRouter.get("/:averageRate", async function (req, res) {
 
 });
 
-// itineraryRouter.get("/:averageRate&:test", async function (req, res) {
-//     const averageRate = parseInt(req.params.averageRate);
-//     const test = parseInt(req.params.test);
-//     const itineraryController = await ItineraryController.getInstance();
-//     try {
-//         const itinerary = await itineraryController.getItineraryByAverageRate(averageRate);
-//         res.json(itinerary);
-//     } catch (err) {
-//         res.status(400).json(err);
-//     }
-//
-// });
+itineraryRouter.get("/duration/:durationmin/:durationmax", async function (req, res) {
+    const durationMin = parseInt(req.params.durationmin);
+    const durationMax = parseInt(req.params.durationmax);
+    const itineraryController = await ItineraryController.getInstance();
+    try {
+        const itinerary = await itineraryController.getItineraryByDuration(durationMin,durationMax);
+        res.json(itinerary);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+
+});
+
+itineraryRouter.get("/distance/:distancemin/:distancemax", async function (req, res) {
+    const distanceMin = parseInt(req.params.distancemin);
+    const distanceMax = parseInt(req.params.distancemax);
+    const itineraryController = await ItineraryController.getInstance();
+    try {
+        const itinerary = await itineraryController.getItineraryByDistance(distanceMin,distanceMax);
+        res.json(itinerary);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+
+});
 
 
 
