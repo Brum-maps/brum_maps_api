@@ -144,4 +144,19 @@ export class ItineraryController {
         return await getRepository(ItineraryStep).save(itineraryStep);
     }
 
+    public async addStepToItinerary(itineraryId: string, stepId: string, props: { step: Step | null; itinerary: Itinerary | null; order: number }){
+        const itinerary = await getRepository(Itinerary).findOne(itineraryId)
+        const step = await getRepository(Step).findOne(stepId)
+        props.order = await this.getNumberStepByItinirary(itineraryId);
+        props.order += 1;
+        const itineraryStep = getRepository(ItineraryStep).create({...props, step: step, itinerary: itinerary});
+        return await getRepository(ItineraryStep).save(itineraryStep);
+    }
+
+    public async getNumberStepByItinirary(itineraryId: string){
+        const itinerary = await getRepository(Itinerary).findOne(itineraryId)
+        const listStep = await getRepository(ItineraryStep).find({itinerary : itinerary})
+        return listStep.length;
+    }
+
 }

@@ -2,6 +2,7 @@ import express from "express";
 import {ItineraryController} from "../controllers/itinerary.controller";
 import {ItineraryStep, ItineraryStepProps} from "../models/itineraryStep.model";
 import {Step, StepProps} from "../models/step.model";
+import {StepController} from "../controllers/step.controller";
 
 
 const itineraryRouter = express.Router();
@@ -193,6 +194,28 @@ itineraryRouter.post("/custom", async function (req, res) {
         }
 
         res.status(201).json(itinerarySaved);
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+});
+
+itineraryRouter.post("/:itineraryId/add/:stepId", async function (req, res) {
+
+    const itineraryController = await ItineraryController.getInstance();
+    const stepController = await StepController.getInstance();
+    const itineraryId = req.params.itineraryId
+    const stepId = req.params.stepId
+    try {
+        const itinerary = await itineraryController.getItineraryById(itineraryId);
+        const step = await stepController.getStepById(stepId);
+
+        const stepAdded = await itineraryController.addStepToItinerary(itineraryId, stepId, {
+            step: step, order : 0, itinerary: itinerary
+        } )
+
+        res.status(201).json(stepAdded);
 
     } catch (err) {
         console.log(err);
