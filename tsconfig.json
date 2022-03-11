@@ -5,7 +5,9 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "compilerOptions": {
-      "outDir": "dist"
+      "outDir": "dist",
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true
     },
     "target": "es6",
     "strict": true,
