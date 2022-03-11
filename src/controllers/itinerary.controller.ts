@@ -1,6 +1,6 @@
 import {getRepository, LessThanOrEqual, MoreThanOrEqual, Repository} from "typeorm";
 import {Itinerary, ItineraryProps} from "../models/itinerary.model";
-import {Duration} from "moment";
+
 import {ItineraryRate, ItineraryRateProps} from "../models/itineraryRate.model";
 import {ItineraryStep, ItineraryStepProps} from "../models/itineraryStep.model";
 import {Step} from "../models/step.model";

@@ -7,7 +7,6 @@ import {
     UpdateDateColumn
 } from "typeorm";
 
-import {Duration} from "moment";
 import {Itinerary} from "./itinerary.model";
 import {User} from "./user.models";
 import {Step} from "./step.model";
