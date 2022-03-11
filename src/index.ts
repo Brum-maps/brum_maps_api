@@ -10,7 +10,7 @@ config();
 const port = process.env.PORT;
 const listEndpoints = require('express-list-endpoints')
 
-// @ts-ignore
+
 createConnection({
     type: "postgres",
     host: process.env.DB_HOST,
