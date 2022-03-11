@@ -7,14 +7,13 @@ import {buildApiRoutes} from "./routes/index.route";
 
 config();
 
-const port = process.env.PORT;
 const listEndpoints = require('express-list-endpoints')
 
 
 createConnection({
     type: "postgres",
     host: process.env.DB_HOST,
-    port: 5432,
+    port: parseInt(process.env.DB_PORT),
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
@@ -35,7 +34,7 @@ createConnection({
     app.use(require('cookie-parser')());
     app.use("/bru-maps", buildApiRoutes());
     // console.log(listEndpoints(app));
-    app.listen(port, function () {
-        console.log(`Listening on ${port}...`);
+    app.listen(process.env.PORT || 3000, function () {
+        console.log(`Listening on ${process.env.PORT}...`);
     });
 }).catch(error => console.log(error));
