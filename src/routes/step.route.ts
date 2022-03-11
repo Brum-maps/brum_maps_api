@@ -1,4 +1,4 @@
-import express from "express";
+import express,{Express} from "express";
 import {ensureLoggedIn, ensureLoggedOut} from "../middlewares/auth.middleware";
 import passport from "passport";
 import {AuthController} from "../controllers/auth.controller";
