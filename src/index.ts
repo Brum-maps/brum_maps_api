@@ -1,5 +1,5 @@
-import express, {Express, Router} from "express";
-import {createConnection, getRepository} from "typeorm";
+import express, {Express} from "express";
+import {createConnection} from "typeorm";
 import {config} from "dotenv";
 import bodyParser from "body-parser";
 import {buildApiRoutes} from "./routes/index.route";

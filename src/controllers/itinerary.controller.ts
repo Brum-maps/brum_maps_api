@@ -1,6 +1,5 @@
-import {getRepository, LessThanOrEqual, MoreThanOrEqual, Repository} from "typeorm";
+import {getRepository, MoreThanOrEqual, Repository} from "typeorm";
 import {Itinerary, ItineraryProps} from "../models/itinerary.model";
-import {Duration} from "moment";
 import {ItineraryRate, ItineraryRateProps} from "../models/itineraryRate.model";
 import {ItineraryStep, ItineraryStepProps} from "../models/itineraryStep.model";
 import {Step} from "../models/step.model";
@@ -82,7 +81,7 @@ export class ItineraryController {
 
     public async updateItineraryRateById(itineraryId: string){
         console.log("itiid", itineraryId)
-        let itineraryRates : ItineraryRate[] = [];
+        let itineraryRates : ItineraryRate[];
          itineraryRates =
              await this.itineraryRateRepository.createQueryBuilder("itinerary_rate")
             .leftJoinAndSelect("itinerary_rate.itinerary", "itinerary")

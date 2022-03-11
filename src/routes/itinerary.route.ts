@@ -1,7 +1,6 @@
 import express from "express";
 import {ItineraryController} from "../controllers/itinerary.controller";
 import {ItineraryStep, ItineraryStepProps} from "../models/itineraryStep.model";
-import {Step, StepProps} from "../models/step.model";
 
 
 const itineraryRouter = express.Router();

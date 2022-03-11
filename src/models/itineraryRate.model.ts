@@ -2,12 +2,10 @@ import {
     Column,
     CreateDateColumn,
     DeleteDateColumn,
-    Entity, JoinColumn, ManyToOne, OneToMany, OneToOne,
-    PrimaryGeneratedColumn,
+    Entity, ManyToOne, PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
 
-import {Duration} from "moment";
 import {Itinerary} from "./itinerary.model";
 import {User} from "./user.models";
 
@@ -21,7 +19,7 @@ export class ItineraryRate implements ItineraryRateProps {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
 
-    @Column({type: "varchar",nullable:! false})
+    @Column({type: "varchar",nullable:true})
     rate!: number;
 
     @Column({type: "varchar",nullable: false})

@@ -1,4 +1,4 @@
-import {getRepository, LessThanOrEqual, MoreThanOrEqual, Repository} from "typeorm";
+import {getRepository, Repository} from "typeorm";
 import {Step, StepProps} from "../models/step.model";
 import {StepRate, StepRateProps} from "../models/stepRate.model";
 
@@ -74,7 +74,7 @@ export class StepController {
 
     public async updateStepRate(step: Step){
 
-        let stepRates : StepRate[] = [];
+        let stepRates : StepRate[];
         stepRates =
             await this.stepRateRepository.createQueryBuilder("stepRate")
                 .where("stepRate.step.id = :step", {step: step.id})

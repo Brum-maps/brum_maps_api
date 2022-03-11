@@ -1,4 +1,4 @@
-import express, {Express, Router} from "express";
+import {Router} from "express";
 import {getRepository} from "typeorm";
 import {TypeormStore} from "connect-typeorm";
 import {configureApi} from "../config/passport.config";

@@ -1,11 +1,5 @@
 import express from "express";
-import {ensureLoggedIn, ensureLoggedOut} from "../middlewares/auth.middleware";
-import passport from "passport";
-import {AuthController} from "../controllers/auth.controller";
 import {StepController} from "../controllers/step.controller";
-import {ItineraryController} from "../controllers/itinerary.controller";
-import {itineraryRouter} from "./itinerary.route";
-import {Step} from "../models/step.model";
 import {UserManagerController} from "../controllers/userManager.controller";
 
 const stepRouter = express.Router();
@@ -84,7 +78,7 @@ stepRouter.get("/randomSteps/:limit", async function (req, res) {
 stepRouter.post("/:stepId/vote", async function (req, res) {
     const stepId = req.params.stepId;
     const stepController = await StepController.getInstance();
-    const userController = await UserManagerController.getInstance();
+    await UserManagerController.getInstance();
     const user = req.user;
     const step = await stepController.getStepById(stepId);
     try {

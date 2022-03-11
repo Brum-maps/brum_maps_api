@@ -2,14 +2,11 @@ import {
     Column,
     CreateDateColumn,
     DeleteDateColumn,
-    Entity, JoinColumn, ManyToOne, OneToMany, OneToOne,
-    PrimaryGeneratedColumn,
+    Entity, ManyToOne, PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
 
-import {Duration} from "moment";
 import {Itinerary} from "./itinerary.model";
-import {User} from "./user.models";
 import {Step} from "./step.model";
 
 export interface ItineraryStepProps {
