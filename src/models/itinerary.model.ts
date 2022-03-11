@@ -29,7 +29,7 @@ export class Itinerary implements ItineraryProps {
     @Column({type: "varchar",nullable: false})
     description!: string;
 
-    @Column({type: "bigint",nullable: false})
+    @Column({type: "bigint",nullable: true})
     duration!: number;
 
     @Column({type: "float",nullable: true})
