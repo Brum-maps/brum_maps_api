@@ -7,7 +7,6 @@ import {buildApiRoutes} from "./routes/index.route";
 
 config();
 
-const listEndpoints = require('express-list-endpoints')
 
 
 createConnection({
