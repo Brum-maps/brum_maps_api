@@ -1,4 +1,4 @@
-import express, {Express} from "express";
+const express = require("express");
 import {createConnection, getRepository} from "typeorm";
 import {config} from "dotenv";
 import bodyParser from "body-parser";
@@ -29,7 +29,7 @@ createConnection({
         }
     }
 }).then(connection => {
-    const app: Express = express();
+    const app = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(require('cookie-parser')());

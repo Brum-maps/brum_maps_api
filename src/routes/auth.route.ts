@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 import {ensureLoggedIn, ensureLoggedOut} from "../middlewares/auth.middleware";
 import passport from "passport";
 import {AuthController} from "../controllers/auth.controller";

@@ -1,4 +1,4 @@
-import express, {Express, Router} from "express";
+const express = require("express");
 import {getRepository} from "typeorm";
 import {TypeormStore} from "connect-typeorm";
 import {configureApi} from "../config/passport.config";
@@ -10,7 +10,7 @@ import {authRouter} from "./auth.route";
 import {stepRouter} from "./step.route";
 
 export function buildApiRoutes() {
-    const router = Router();
+    const router = express.Router();
     configureApi();
     // router.use(require('cors')({ credentials : true, origin: ["http://localhost:4200", "http://localhost:4201"]}));
     router.use("/", require('express-session')({

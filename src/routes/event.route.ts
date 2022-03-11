@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 import {EventController} from "../controllers/event.controller";
 
 const eventRouter = express.Router();
