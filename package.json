@@ -9,6 +9,7 @@
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w"
   },
+  "moteurs": { "node": "14.18.1" },
   "keywords": [],
   "author": "",
   "license": "ISC",
