@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm i && node --experimental-modules src/index.ts",
     "dev": "nodemon --watch src/*/.ts --exec ts-node src/index.ts",
-    "build": "tsc --experimentalDecorators --esModuleInterop src/index.ts && npm start"
+    "build": "tsc --experimentalDecorators --esModuleInterop src/index.js && npm start"
   },
   "keywords": [],
   "author": "",
