@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npm i && node --experimental-modules src/index.ts",
+    "start": "node --experimental-modules src/index.js",
     "dev": "nodemon --watch src/*/.ts --exec ts-node src/index.ts",
-    "build": "tsc --experimentalDecorators --esModuleInterop src/index.js && npm start"
+    "build": "npm i && tsc --experimentalDecorators --esModuleInterop src/index.ts && npm start"
   },
   "keywords": [],
   "author": "",
