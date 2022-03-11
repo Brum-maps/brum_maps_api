@@ -26,9 +26,24 @@ export class ItineraryController {
         return await this.itineraryRepository.find();
     }
 
-    public async getItineraryById(id: string): Promise<Itinerary | null> {
-        return await this.itineraryRepository.findOneOrFail(id);
+    public async getItineraryById(id: string): Promise<Itinerary[]> {
+        return await this.itineraryRepository.find({
+            where: {
+                id: id
+            },
+            relations: ["itinerarySteps", "itinerarySteps.step"],
+        });
     }
+    // public async getItineraryById(id: string): Promise<Itinerary[]> {
+    //     //
+    //     // return await this.itineraryRepository.createQueryBuilder("itinerary")
+    //     //     .leftJoinAndSelect("itinerary")find({
+    //     //     itinerarySteps : id
+    //     // });
+    // }
+
+
+
     public async createItinerary(props: ItineraryProps): Promise<Itinerary | null> {
 
         const itinerary = this.itineraryRepository.create({...props});
@@ -144,7 +159,7 @@ export class ItineraryController {
         return await getRepository(ItineraryStep).save(itineraryStep);
     }
 
-    public async addStepToItinerary(itineraryId: string, stepId: string, props: { step: Step | null; itinerary: Itinerary | null; order: number }){
+    public async addStepToItinerary(itineraryId: string, stepId: string, props: { step: Step | null; itinerary: Itinerary[]; order: number }){
         const itinerary = await getRepository(Itinerary).findOne(itineraryId)
         const step = await getRepository(Step).findOne(stepId)
         props.order = await this.getNumberStepByItinirary(itineraryId);
